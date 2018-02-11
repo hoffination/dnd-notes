@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import Place from '../assets/castle.svg';
+import Person from '../assets/caesar.svg';
+import Monster from '../assets/saber-toothed-cat-head.svg';
+import Item from '../assets/swap-bag.svg';
+
 Vue.use(Vuex);
 
 // root state object.
@@ -36,12 +41,12 @@ const state = {
   },
   enums: {
     noteTypes: {
-      0: 'Place',
-      1: 'Person',
-      2: 'Organization',
-      3: 'Item',
-      4: 'Monster',
-      5: 'Quest',
+      0: { name: 'Place', svg: Place },
+      1: { name: 'Person', svg: Person },
+      2: { name: 'Organization', svg: Person },
+      3: { name: 'Item', svg: Item },
+      4: { name: 'Monster', svg: Monster },
+      5: { name: 'Quest', svg: Person },
     },
   },
 };
@@ -76,7 +81,7 @@ const actions = {
 
 // getters are functions
 const getters = {
-  noteTypes: s => Object.values(s.enums.noteTypes),
+  noteTypes: s => Object.values(s.enums.noteTypes).map(value => value.name),
   // evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
 };
 

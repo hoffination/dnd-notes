@@ -4,7 +4,7 @@
       :data="$store.state.entities.notes"
       @row-click="clickRow"
     >
-      <el-table-column>
+      <el-table-column width="60">
         <template slot-scope="scope">
           <simple-svg
             :filepath="$store.state.enums.noteTypes[scope.row.type].svg"
@@ -16,14 +16,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="title" label="Title"></el-table-column>
-      <el-table-column label="Type">
+      <el-table-column width="60">
         <template slot-scope="scope">
-          <p>{{$store.state.enums.noteTypes[scope.row.type].name}}</p>
-        </template>
-      </el-table-column>
-      <el-table-column label="Observations">
-        <template slot-scope="scope">
-          <p>{{scope.row.items.length}}</p>
+          <el-tag>{{scope.row.items.length}}</el-tag>
         </template>
       </el-table-column>
     </el-table>
@@ -31,13 +26,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'NoteList',
-  methods: {
-    clickRow(e) {
-      console.log('Row Clicked: ', e, e.id);
+  methods: Object.assign(
+    mapActions([
+      'selectNote',
+    ]), {
+      clickRow(e) {
+        this.selectNote(e.id);
+        // TODO: route
+      },
     },
-  },
+  ),
 };
 </script>
 

@@ -80,7 +80,7 @@ const actions = {
 };
 
 // getters are functions
-const getters = {
+export const getters = {
   noteTypes: s => Object.values(s.enums.noteTypes).map(value => value.name),
   // evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
 };

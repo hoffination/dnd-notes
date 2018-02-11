@@ -1,13 +1,25 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+
+    <ul>
+      <li v-for="(item, index) in noteTypes" :key="index">
+        {{item}}
+      </li>
+    </ul>
+
     <el-button>Hello</el-button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'HelloWorld',
+  computed: mapGetters([
+    'noteTypes',
+  ]),
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',

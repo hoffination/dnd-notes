@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-table
-      :data="$store.state.entities.notes"
+      :data="notes"
       @row-click="clickRow"
     >
       <el-table-column width="60">
@@ -26,10 +26,13 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'NoteList',
+  computed: mapGetters([
+    'notes',
+  ]),
   methods: Object.assign(
     mapActions([
       'selectNote',
@@ -44,5 +47,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -154,6 +154,7 @@ const actions = {
 // getters are functions
 export const getters = {
   noteTypes: s => Object.values(s.enums.noteTypes).map(value => value.name),
+  selectedNote: s => s.entities.notes.filter(note => note.id === s.ui.selectedNote)[0],
   // evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
 };
 

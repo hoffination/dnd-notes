@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1 class="dnd-header">{{ msg }}</h1>
 
     <ul>
       <li v-for="(item, index) in noteTypes" :key="index">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ msg }}</h1>
+    <h1 class="dnd-header">{{ msg }}</h1>
     <el-button>Add Note</el-button>
     <NoteList class="list"></NoteList>
   </div>

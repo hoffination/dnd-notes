@@ -18,7 +18,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-h1, h2 {
+.dnd-header {
   font-weight: normal;
   text-align: center;
 }

@@ -36,7 +36,7 @@ export default {
     ]), {
       clickRow(e) {
         this.selectNote(e.id);
-        // TODO: route
+        this.$router.push('/selected');
       },
     },
   ),

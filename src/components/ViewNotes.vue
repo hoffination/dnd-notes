@@ -2,10 +2,10 @@
   <div>
     <!-- Dialog -->
     <el-dialog
-      title="Create a Note"
       :visible.sync="$store.state.ui.addNoteModalOpen"
-      center
+      :fullscreen="true"
     >
+      <h1 class="dnd-header">Create a Note</h1>
       <AddNote class="addNoteForm"></AddNote>
     </el-dialog>
 
@@ -40,5 +40,8 @@ export default {
 }
 .addNoteForm {
   max-width: 600px;
+  padding-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" :rules="rules" ref="form" label-width="100px">
+  <el-form :model="form" :rules="rules" ref="form" label-width="80px">
     <el-form-item label="Title" prop="title">
       <el-input v-model="form.title"></el-input>
     </el-form-item>
@@ -12,7 +12,7 @@
               v-for="(item, index) in noteTypes"
               :key="index"
               :label="item.name"
-              :value="item"
+              :value="item.id"
             >
               <span style="float: left;">{{item.name}}</span>
               <simple-svg
@@ -27,8 +27,8 @@
           </el-select>
         </el-col>
         <el-col :span="4">
-          <simple-svg v-if="form.type"
-            :filepath="form.type.svg"
+          <simple-svg v-if="form.type !== null"
+            :filepath="$store.state.enums.noteTypes[form.type].svg"
             :width="'40px'"
             :height="'40px'"
             :stroke="'transparent'"

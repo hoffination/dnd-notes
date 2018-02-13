@@ -4,7 +4,7 @@
 
     <ul>
       <li v-for="(item, index) in noteTypes" :key="index">
-        {{item}}
+        {{item.name}}
       </li>
     </ul>
 

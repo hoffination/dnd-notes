@@ -116,16 +116,17 @@ const initialState = {
   },
   enums: {
     noteTypes: {
-      0: { name: 'Place', svg: Place },
-      1: { name: 'Person', svg: Person },
-      2: { name: 'Organization', svg: Organization },
-      3: { name: 'Item', svg: Item },
-      4: { name: 'Monster', svg: Monster },
-      5: { name: 'Quest', svg: Quest },
+      0: { id: 0, name: 'Place', svg: Place },
+      1: { id: 1, name: 'Person', svg: Person },
+      2: { id: 2, name: 'Organization', svg: Organization },
+      3: { id: 3, name: 'Item', svg: Item },
+      4: { id: 4, name: 'Monster', svg: Monster },
+      5: { id: 5, name: 'Quest', svg: Quest },
     },
   },
   ui: {
     selectedNote: null,
+    addNoteModalOpen: false,
   },
 };
 
@@ -136,12 +137,16 @@ const initialState = {
 // for debugging purposes.
 const mutations = {
   selectNote(state, id) { state.ui.selectedNote = id; },
+  openAddNoteModal(state) { state.ui.addNoteModalOpen = true; },
+  closeAddNoteModal(state) { state.ui.addNoteModalOpen = false; },
 };
 
 // actions are functions that cause side effects and can involve
 // asynchronous operations.
 const actions = {
   selectNote: ({ commit }, id) => commit('selectNote', id),
+  openAddNoteModal: ({ commit }) => commit('openAddNoteModal'),
+  closeAddNoteModal: ({ commit }) => commit('closeAddNoteModal'),
   // increment: ({ commit }) => commit('increment'),
   // incrementAsync ({ commit }) {
   //   return new Promise((resolve, reject) => {
@@ -156,7 +161,7 @@ const actions = {
 // getters are functions
 export const getters = {
   notes: state => Object.values(state.entities.notes),
-  noteTypes: state => Object.values(state.enums.noteTypes).map(value => value.name),
+  noteTypes: state => Object.values(state.enums.noteTypes),
   selectedNote: state => state.entities.notes[state.ui.selectedNote],
   // evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
 };

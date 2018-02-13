@@ -10,24 +10,27 @@
       </simple-svg>
       {{ selectedNote.title }}
     </h1>
-    <h3 class="dnd-header" style="padding-top: 0; margin-top: -10px;">Author: You</h3>
+    <h3 class="dnd-header">Author: You</h3>
 
-    <br/>
-
-    <p v-for="(note, index) in selectedNote.items" :key="index">
+    <p
+      v-for="(note, index) in selectedNote.items"
+      :key="index"
+    >
       {{ note.item }}
     </p>
 
-    <form class="add-note">
-      <el-row >
+    <el-form class="add-note">
+      <el-row>
         <el-col :span="20">
-          <el-input></el-input>
+          <el-form-item prop="noteToAdd">
+            <el-input v-model="noteToAdd"></el-input>
+          </el-form-item>
         </el-col>
         <el-col :span="4">
           <el-button>Add</el-button>
         </el-col>
       </el-row>
-    </form>
+    </el-form>
   </div>
 </template>
 
@@ -41,7 +44,7 @@ export default {
   ]),
   data() {
     return {
-      addInput: '',
+      noteToAdd: '',
     };
   },
 };
@@ -56,5 +59,10 @@ p {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+}
+h3.dnd-header {
+  padding-top: 0;
+  margin-top: -10px;
+  margin-bottom: 40px;
 }
 </style>

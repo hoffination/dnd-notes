@@ -9,15 +9,15 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/hello',
       name: 'HelloWorld',
       component: HelloWorld,
     }, {
-      path: '/notes',
+      path: '/',
       name: 'ViewNotes',
       component: ViewNotes,
     }, {
-      path: '/selected',
+      path: '/selectedNote',
       name: 'NoteDetail',
       component: NoteDetail,
     },

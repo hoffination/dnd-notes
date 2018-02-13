@@ -136,7 +136,7 @@ const initialState = {
 // mutations must be synchronous and can be recorded by plugins
 // for debugging purposes.
 const mutations = {
-  selectNote(state, id) { state.ui.selectedNote = id; },
+  selectNote(state, noteId) { state.ui.selectedNote = noteId; },
   openAddNoteModal(state) { state.ui.addNoteModalOpen = true; },
   closeAddNoteModal(state) { state.ui.addNoteModalOpen = false; },
 };
@@ -144,10 +144,9 @@ const mutations = {
 // actions are functions that cause side effects and can involve
 // asynchronous operations.
 const actions = {
-  selectNote: ({ commit }, id) => commit('selectNote', id),
+  selectNote: ({ commit }, noteId) => commit('selectNote', noteId),
   openAddNoteModal: ({ commit }) => commit('openAddNoteModal'),
   closeAddNoteModal: ({ commit }) => commit('closeAddNoteModal'),
-  // increment: ({ commit }) => commit('increment'),
   // incrementAsync ({ commit }) {
   //   return new Promise((resolve, reject) => {
   //     setTimeout(() => {
@@ -163,7 +162,6 @@ export const getters = {
   notes: state => Object.values(state.entities.notes),
   noteTypes: state => Object.values(state.enums.noteTypes),
   selectedNote: state => state.entities.notes[state.ui.selectedNote],
-  // evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
 };
 
 // A Vuex instance is created by combining the state, mutations, actions,

@@ -39,9 +39,14 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'NoteDetail',
-  computed: mapGetters([
-    'selectedNote',
-  ]),
+  computed: Object.assign(
+    mapGetters([
+      'notes',
+    ]),
+    {
+      selectedNote: x => x.notes[x.$route.params.id],
+    },
+  ),
   data() {
     return {
       noteToAdd: '',
@@ -64,5 +69,8 @@ h3.dnd-header {
   padding-top: 0;
   margin-top: -10px;
   margin-bottom: 40px;
+}
+.simple-svg-wrapper {
+  height: 48px;
 }
 </style>

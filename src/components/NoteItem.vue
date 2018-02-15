@@ -1,6 +1,6 @@
 <template>
   <p>
-    <span v-for="(item, index) in aTest" :key="index">
+    <span v-for="(item, index) in noteItems" :key="index">
       <el-button
         class="linkTag"
         v-if="item.toId !== undefined"
@@ -22,11 +22,9 @@ export default {
   props: ['item'],
   name: 'NoteItem',
   computed: {
-    // TODO: pull out into a util and test
-    aTest: (noteItem) => {
+    noteItems: (noteItem) => {
       const words = noteItem.item.item.split(' ');
       let position = 0;
-      let last = 0;
       const results = [];
       noteItem.item.links.forEach((link) => {
         if (position === 0 && link.startWord !== 0) {
@@ -34,28 +32,25 @@ export default {
             item: take(link.startWord, words).join(' '),
           });
           position = link.startWord;
-          last = link.startWord;
         }
-        if (link.startWord > last) {
+        if (link.startWord > position) {
           results.push({
-            item: take(link.startWord - last, drop(last, words)).join(' '),
+            item: take(link.startWord - position, drop(position, words)).join(' '),
           });
           position = link.startWord;
-          last = link.startWord;
         }
         results.push({
           toId: link.toId,
           item: take(link.endWord - link.startWord, drop(link.startWord, words)).join(' '),
         });
         position = link.endWord;
-        last = link.endWord;
       });
-      if (last !== 0 && last !== words.length) {
+      if (position !== 0 && position !== words.length) {
         results.push({
           item: take(words.length - position, drop(position, words)).join(' '),
         });
       }
-      if (last === 0 && words.length > 0) {
+      if (position === 0 && words.length > 0) {
         results.push({
           item: words.join(' '),
         });
@@ -68,7 +63,7 @@ export default {
       'selectNote',
     ]), {
       goto(id) {
-        this.selectNote(id);
+        this.$router.push(`/selectedNote/${id}`);
       },
     },
   ),

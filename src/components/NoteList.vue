@@ -24,23 +24,18 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'NoteList',
   computed: mapGetters([
     'notes',
   ]),
-  methods: Object.assign(
-    mapActions([
-      'selectNote',
-    ]), {
-      clickRow(e) {
-        this.selectNote(e.id);
-        this.$router.push('/selectedNote');
-      },
+  methods: {
+    clickRow(e) {
+      this.$router.push(`/selectedNote/${e.id}`);
     },
-  ),
+  },
 };
 </script>
 

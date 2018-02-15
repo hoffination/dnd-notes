@@ -17,7 +17,7 @@ export default new Router({
       name: 'ViewNotes',
       component: ViewNotes,
     }, {
-      path: '/selectedNote',
+      path: '/selectedNote/:id',
       name: 'NoteDetail',
       component: NoteDetail,
     },

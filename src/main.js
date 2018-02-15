@@ -23,8 +23,9 @@ import App from './App';
 import router from './router';
 import store from './store/store';
 
-import NoteList from './components/NoteList';
 import AddNote from './components/AddNote';
+import NoteItem from './components/NoteItem';
+import NoteList from './components/NoteList';
 
 Vue.config.productionTip = false;
 
@@ -46,8 +47,9 @@ Vue.component(TableColumn.name, TableColumn);
 Vue.component(Tag.name, Tag);
 
 // Internal Components
-Vue.component(NoteList.name, NoteList);
 Vue.component(AddNote.name, AddNote);
+Vue.component(NoteItem.name, NoteItem);
+Vue.component(NoteList.name, NoteList);
 
 /* eslint-disable no-new */
 new Vue({

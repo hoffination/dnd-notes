@@ -12,12 +12,12 @@
     </h1>
     <h3 class="dnd-header">Author: You</h3>
 
-    <p
+    <NoteItem
       v-for="(note, index) in selectedNote.items"
       :key="index"
+      :item="note"
     >
-      {{ note.item }}
-    </p>
+    </NoteItem>
 
     <el-form class="add-note">
       <el-row>

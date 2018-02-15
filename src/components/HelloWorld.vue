@@ -17,9 +17,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'HelloWorld',
-  computed: mapGetters([
-    'noteTypes',
-  ]),
+  computed: mapGetters(['noteTypes']),
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',

@@ -67,7 +67,7 @@ const initialState = {
         type: 5,
         id: 3,
         items: [{
-          item: 'Quest given by Bijorn Ironheart in Neverwinter',
+          item: 'Quest given by Bijorn Ironheart in Neverwinter yo',
           links: [{
             toId: 1,
             startWord: 3,
@@ -102,7 +102,7 @@ const initialState = {
           tags: [],
           order: 0,
         }, {
-          item: 'From Bijorn Ironclad to Lydia Moonbutt',
+          item: 'From Bijorn Ironheart to Lydia Moonbutt',
           links: [{
             toId: 1,
             startWord: 1,

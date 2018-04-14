@@ -9,6 +9,7 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    "\\.(css|scss|svg)$": "identity-obj-proxy",
   },
   transform: {
     '^.+\\.js$': '<rootDir>/node_modules/babel-jest',

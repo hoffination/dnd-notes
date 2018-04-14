@@ -7,6 +7,7 @@ import NoteDetail from '@/components/NoteDetail';
 Vue.use(Router);
 
 export default new Router({
+  base: '/dnd-notes/',
   routes: [
     {
       path: '/hello',

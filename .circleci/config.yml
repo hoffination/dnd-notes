@@ -36,29 +36,11 @@ jobs:
       # run tests!
       - run: yarn test
 
-      - run: yarn build
-      - persist_to_workspace:
-          root: dist
-
-  deploy:
-    machine:
-      enabled: true
-
-    working_directory: ~/repo
-
-    steps:
-      - run: 
-          name: Deploy to S3 if tests pass and branch is Master
-          command: aws s3 sync ~/repo/dist s3://dnd-notes --delete
-
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+      # deploy!
+      - run: sudo apt-get update && sudo apt-get install -y python-dev
+      - run: sudo curl -O https://bootstrap.pypa.io/get-pip.py
+      - run: sudo python get-pip.py
+      - run: sudo pip install awscli --upgrade
+      - run: aws --version
+      - run: aws s3 ls
+      - run: yarn deploy

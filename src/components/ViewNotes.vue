@@ -21,9 +21,7 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'ViewNotes',
-  methods: mapActions([
-    'openAddNoteModal',
-  ]),
+  methods: mapActions(['openAddNoteModal']),
   data() {
     return {
       msg: 'Your notes',

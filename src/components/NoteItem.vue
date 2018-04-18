@@ -24,15 +24,11 @@ export default {
   computed: {
     noteItems: separateLinksInItem,
   },
-  methods: Object.assign(
-    mapActions([
-      'selectNote',
-    ]), {
-      goto(id) {
-        this.$router.push(`/selectedNote/${id}`);
-      },
+  methods: Object.assign(mapActions(['selectNote']), {
+    goto(id) {
+      this.$router.push(`/selectedNote/${id}`);
     },
-  ),
+  }),
 };
 </script>
 

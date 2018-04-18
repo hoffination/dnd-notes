@@ -28,9 +28,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'NoteList',
-  computed: mapGetters([
-    'notes',
-  ]),
+  computed: mapGetters(['notes']),
   methods: {
     clickRow(e) {
       this.$router.push(`/selectedNote/${e.id}`);

@@ -54,9 +54,7 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'AddNote',
-  computed: mapGetters([
-    'noteTypes',
-  ]),
+  computed: mapGetters(['noteTypes']),
   data() {
     return {
       form: {
@@ -65,31 +63,23 @@ export default {
         first: '',
       },
       rules: {
-        title: [
-          { required: true, message: 'Please add a note title', trigger: 'blur' },
-        ],
-        type: [
-          { required: true, message: 'Please select a note type', trigger: 'change' },
-        ],
+        title: [{ required: true, message: 'Please add a note title', trigger: 'blur' }],
+        type: [{ required: true, message: 'Please select a note type', trigger: 'change' }],
         first: [], // No rules!
       },
     };
   },
-  methods: Object.assign(
-    mapActions([
-      'closeAddNoteModal',
-    ]), {
-      submitForm(form) {
-        this.$refs[form].validate((valid) => {
-          if (valid) {
-            this.closeAddNoteModal();
-            return true;
-          }
-          return false;
-        });
-      },
+  methods: Object.assign(mapActions(['closeAddNoteModal']), {
+    submitForm(form) {
+      this.$refs[form].validate(valid => {
+        if (valid) {
+          this.closeAddNoteModal();
+          return true;
+        }
+        return false;
+      });
     },
-  ),
+  }),
 };
 </script>
 

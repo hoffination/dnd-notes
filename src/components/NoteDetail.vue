@@ -39,14 +39,9 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'NoteDetail',
-  computed: Object.assign(
-    mapGetters([
-      'notes',
-    ]),
-    {
-      selectedNote: x => x.notes[x.$route.params.id],
-    },
-  ),
+  computed: Object.assign(mapGetters(['notes']), {
+    selectedNote: x => x.notes[x.$route.params.id],
+  }),
   data() {
     return {
       noteToAdd: '',

@@ -37,7 +37,6 @@ Vue.component(AddNote.name, AddNote);
 Vue.component(NoteItem.name, NoteItem);
 Vue.component(NoteList.name, NoteList);
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

@@ -1,7 +1,21 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-import { Button, Col, Dialog, Form, FormItem, Input, Option, Popover, Row, Select, Table, TableColumn, Tag } from 'element-ui';
+import {
+  Button,
+  Col,
+  Dialog,
+  Form,
+  FormItem,
+  Input,
+  Option,
+  Popover,
+  Row,
+  Select,
+  Table,
+  TableColumn,
+  Tag,
+} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueSimpleSVG from 'vue-simple-svg';
 
@@ -14,6 +28,7 @@ import NoteItem from './components/NoteItem';
 import NoteList from './components/NoteList';
 
 Vue.config.productionTip = false;
+Vue.config.API = process.env.API;
 
 Vue.use(VueSimpleSVG);
 

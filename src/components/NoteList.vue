@@ -31,7 +31,7 @@ export default {
   computed: mapGetters(['notes']),
   methods: {
     clickRow(e) {
-      this.$router.push(`/selectedNote/${e.id}`);
+      this.$router.push(`/selectedNote/${e._id}`);
     },
   },
 };

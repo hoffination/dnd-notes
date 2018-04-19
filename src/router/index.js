@@ -13,11 +13,13 @@ export default new Router({
       path: '/hello',
       name: 'HelloWorld',
       component: HelloWorld,
-    }, {
+    },
+    {
       path: '/',
       name: 'ViewNotes',
       component: ViewNotes,
-    }, {
+    },
+    {
       path: '/selectedNote/:id',
       name: 'NoteDetail',
       component: NoteDetail,

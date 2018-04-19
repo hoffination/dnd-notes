@@ -19,7 +19,10 @@ export default function separateLinksInItem(noteItem) {
     }
     results.push({
       toId: link.toId,
-      item: take(link.endWord - link.startWord, drop(link.startWord, words)).join(' '),
+      item: take(
+        link.endWord - link.startWord,
+        drop(link.startWord, words),
+      ).join(' '),
     });
     position = link.endWord;
   });

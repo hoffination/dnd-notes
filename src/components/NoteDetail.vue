@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="selectedNote">
     <h1 class="dnd-header">
       <simple-svg
         :filepath="$store.state.enums.noteTypes[selectedNote.type].svg"
@@ -39,9 +39,12 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'NoteDetail',
-  computed: Object.assign(mapGetters(['notes']), {
-    selectedNote: x => x.notes[x.$route.params.id],
-  }),
+  computed: {
+    ...mapGetters(['getNote']),
+    selectedNote(x) {
+      return x.getNote(x.$route.params.id);
+    },
+  },
   data() {
     return {
       noteToAdd: '',

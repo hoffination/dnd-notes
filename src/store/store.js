@@ -9,6 +9,7 @@ import Organization from '../assets/throne-king.svg';
 import Quest from '../assets/stabbed-note.svg';
 import graphqlClient from '../utils/graphql';
 import notesQuery from './queries/notes';
+import addItemMutation from './queries/addItem';
 
 Vue.use(Vuex);
 
@@ -170,6 +171,12 @@ const mutations = {
   loadNotes(state, notes) {
     state.entities.notes = notes;
   },
+  appendNotes(state, notes) {
+    state.entities.notes = {
+      ...state.entities.notes,
+      ...notes,
+    };
+  },
 };
 
 // actions are functions that cause side effects and can involve
@@ -193,14 +200,18 @@ const actions = {
       })
       .then(notes => commit('loadNotes', notes));
   },
-  // incrementAsync ({ commit }) {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       commit('increment')
-  //       resolve()
-  //     }, 1000)
-  //   })
-  // }
+  addItem: ({ commit }, { _id, item }) => {
+    graphqlClient
+      .mutate({
+        mutation: addItemMutation,
+        variables: { _id, item },
+      })
+      .then(response => {
+        let noteContainer = {};
+        noteContainer[response.data.addItem._id] = response.data.addItem;
+        commit('appendNotes', noteContainer);
+      });
+  },
 };
 
 // getters are functions

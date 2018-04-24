@@ -27,7 +27,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="4">
-          <el-button>Add</el-button>
+          <el-button type="submit" @click="addItemToNote()">Add</el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -35,10 +35,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'NoteDetail',
+  methods: {
+    ...mapActions(['addItem']),
+    addItemToNote() {
+      this.addItem({ _id: this.$route.params.id, item: this.noteToAdd });
+      this.noteToAdd = '';
+    },
+  },
   computed: {
     ...mapGetters(['getNote']),
     selectedNote(x) {

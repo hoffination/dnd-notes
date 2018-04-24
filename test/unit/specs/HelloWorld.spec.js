@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import Vuex from 'vuex'
-import { shallow, createLocalVue } from 'vue-test-utils'
+import Vuex from 'vuex';
+import { shallow, createLocalVue } from 'vue-test-utils';
 import HelloWorld from '@/components/HelloWorld';
 
 const localVue = createLocalVue();
@@ -15,7 +15,7 @@ describe('HelloWorld.vue', () => {
       noteTypes: () => ['a', 'b'],
     };
     store = new Vuex.Store({
-      getters
+      getters,
     });
   });
 
@@ -24,7 +24,8 @@ describe('HelloWorld.vue', () => {
       store,
       localVue,
     });
-    expect(wrapper.find('.hello h1').text())
-      .toEqual('Welcome to Your Vue.js App');
+    expect(wrapper.find('.hello h1').text()).toEqual(
+      'Welcome to Your Vue.js App',
+    );
   });
 });

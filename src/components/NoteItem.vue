@@ -16,7 +16,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import separateLinksInItem from '../utils/NoteTransform';
+import { separateLinksInItem } from '../utils/NoteTransform';
 
 export default {
   props: ['item'],

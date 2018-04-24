@@ -1,6 +1,16 @@
 import { take, drop } from 'ramda';
 
-export default function separateLinksInItem(noteItem) {
+export function noteArrayToIndexMap(notes) {
+  return notes
+    .map(note => {
+      let map = {};
+      map[note._id] = note;
+      return map;
+    })
+    .reduce((p, c) => ({ ...p, ...c }), {});
+}
+
+export function separateLinksInItem(noteItem) {
   const words = noteItem.item.item.split(' ');
   let position = 0;
   const results = [];

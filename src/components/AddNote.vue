@@ -51,17 +51,18 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+const formDefault = {
+  title: '',
+  type: null,
+  first: '',
+};
 
 export default {
   name: 'AddNote',
-  computed: mapGetters(['noteTypes']),
+  computed: mapGetters(['noteTypes', 'modalOpen']),
   data() {
     return {
-      form: {
-        title: '',
-        type: null,
-        first: '',
-      },
+      form: { ...formDefault },
       rules: {
         title: [{ required: true, message: 'Please add a note title', trigger: 'blur' }],
         type: [{ required: true, message: 'Please select a note type', trigger: 'change' }],
@@ -69,17 +70,29 @@ export default {
       },
     };
   },
-  methods: Object.assign(mapActions(['closeAddNoteModal']), {
+  watch: {
+    modalOpen: function() {
+      if (!this.modalOpen) {
+        this.form = { ...formDefault };
+      }
+    },
+  },
+  methods: {
+    ...mapActions(['closeAddNoteModal', 'addNote']),
     submitForm(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          this.closeAddNoteModal();
+          this.addNote({
+            title: this.form.title,
+            type: this.form.type,
+            firstNote: this.form.first,
+          });
           return true;
         }
         return false;
       });
     },
-  }),
+  },
 };
 </script>
 

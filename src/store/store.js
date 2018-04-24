@@ -9,137 +9,16 @@ import Organization from '../assets/throne-king.svg';
 import Quest from '../assets/stabbed-note.svg';
 import graphqlClient from '../utils/graphql';
 import notesQuery from './queries/notes';
+import addNoteMutation from './queries/addNote';
 import addItemMutation from './queries/addItem';
+import demoNotes from './demo/demo-notes';
+import { noteArrayToIndexMap } from '../utils/NoteTransform';
 
 Vue.use(Vuex);
 
-// root state object.
-// each Vuex instance is just a single state tree.
 const initialState = {
-  // count: 0
   entities: {
-    notes: {
-      0: {
-        title: 'Neverwinter',
-        type: 0,
-        id: 0,
-        items: [
-          {
-            item: 'A town in the Sword Coast region',
-            links: [],
-            tags: ['a', 'town', 'in', 'the', 'sword', 'coast', 'region'],
-            order: 0,
-          },
-        ],
-      },
-      1: {
-        title: 'Bijorn Ironheart',
-        type: 1,
-        id: 1,
-        items: [
-          {
-            item: 'Lives in Neverwinter',
-            links: [
-              {
-                toId: 0,
-                startWord: 2,
-                endWord: 3,
-              },
-            ],
-            tags: ['lives', 'in', 'neverwinter'],
-            order: 0,
-          },
-        ],
-      },
-      2: {
-        title: 'Lords Alliance',
-        type: 2,
-        id: 2,
-        items: [
-          {
-            item:
-              'A group of concerned nobles who have combined resources to combat threats to the Sword Coast',
-            links: [],
-            tags: [],
-            order: 0,
-          },
-          {
-            item: 'Northern-most headquarter is located in Neverwinter',
-            links: [
-              {
-                toId: 0,
-                startWord: 5,
-                endWord: 6,
-              },
-            ],
-            tags: [],
-            order: 1,
-          },
-        ],
-      },
-      3: {
-        title: 'Deliver goods to Phandalin',
-        type: 5,
-        id: 3,
-        items: [
-          {
-            item: 'Quest given by Bijorn Ironheart in Neverwinter yo',
-            links: [
-              {
-                toId: 1,
-                startWord: 3,
-                endWord: 5,
-              },
-              {
-                toId: 0,
-                startWord: 6,
-                endWord: 7,
-              },
-            ],
-            tags: [],
-            order: 0,
-          },
-        ],
-      },
-      4: {
-        title: 'Goblins',
-        type: 4,
-        id: 4,
-        items: [
-          {
-            item: 'A menace of the forests of the Sword Coast region',
-            links: [],
-            tags: [],
-            order: 0,
-          },
-        ],
-      },
-      5: {
-        title: 'Delivery to Phandalin',
-        type: 3,
-        id: 5,
-        items: [
-          {
-            item: 'Loaded on the back of a wagon for delivery to Phandalin',
-            links: [],
-            tags: [],
-            order: 0,
-          },
-          {
-            item: 'From Bijorn Ironheart to Lydia Moonbutt',
-            links: [
-              {
-                toId: 1,
-                startWord: 1,
-                endWord: 3,
-              },
-            ],
-            tags: [],
-            order: 0,
-          },
-        ],
-      },
-    },
+    notes: demoNotes,
   },
   enums: {
     noteTypes: {
@@ -156,11 +35,6 @@ const initialState = {
   },
 };
 
-// mutations are operations that actually mutates the state.
-// each mutation handler gets the entire state tree as the
-// first argument, followed by additional payload arguments.
-// mutations must be synchronous and can be recorded by plugins
-// for debugging purposes.
 const mutations = {
   openAddNoteModal(state) {
     state.ui.addNoteModalOpen = true;
@@ -179,8 +53,6 @@ const mutations = {
   },
 };
 
-// actions are functions that cause side effects and can involve
-// asynchronous operations.
 const actions = {
   openAddNoteModal: ({ commit }) => commit('openAddNoteModal'),
   closeAddNoteModal: ({ commit }) => commit('closeAddNoteModal'),
@@ -189,16 +61,21 @@ const actions = {
       .query({
         query: notesQuery,
       })
-      .then(response => {
-        return response.data.notes
-          .map(note => {
-            let map = {};
-            map[note._id] = note;
-            return map;
-          })
-          .reduce((p, c) => ({ ...p, ...c }), {});
-      })
+      .then(response => noteArrayToIndexMap(response.data.notes))
       .then(notes => commit('loadNotes', notes));
+  },
+  addNote: ({ commit }, { title, type, firstNote }) => {
+    graphqlClient
+      .mutate({
+        mutation: addNoteMutation,
+        variables: { title, type, firstNote },
+      })
+      .then(response => noteArrayToIndexMap(response.data.addNote))
+      .then(notes => {
+        commit('appendNotes', notes);
+        commit('closeAddNoteModal');
+      })
+      .catch(err => alert(err));
   },
   addItem: ({ commit }, { _id, item }) => {
     graphqlClient
@@ -214,15 +91,13 @@ const actions = {
   },
 };
 
-// getters are functions
 export const getters = {
   getNote: state => id => state.entities.notes[id],
   notes: state => Object.values(state.entities.notes),
   noteTypes: state => Object.values(state.enums.noteTypes),
+  modalOpen: state => state.ui.addNoteModalOpen,
 };
 
-// A Vuex instance is created by combining the state, mutations, actions,
-// and getters.
 export default new Vuex.Store({
   state: initialState,
   getters,

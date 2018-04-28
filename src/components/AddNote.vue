@@ -85,7 +85,7 @@ export default {
           this.addNote({
             title: this.form.title,
             type: this.form.type,
-            firstNote: this.form.first,
+            firstItem: this.form.first,
           });
           return true;
         }

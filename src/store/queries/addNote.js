@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation AddNote($title: String!, $type: Int!, $firstNote: String) {
-    addNote(title: $title, type: $type, firstNote: $firstNote) {
+  mutation AddNote($title: String!, $type: Int!, $firstItem: String) {
+    addNote(title: $title, type: $type, firstItem: $firstItem) {
       _id
       title
       type

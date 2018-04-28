@@ -64,11 +64,11 @@ const actions = {
       .then(response => noteArrayToIndexMap(response.data.notes))
       .then(notes => commit('loadNotes', notes));
   },
-  addNote: ({ commit }, { title, type, firstNote }) => {
+  addNote: ({ commit }, { title, type, firstItem }) => {
     graphqlClient
       .mutate({
         mutation: addNoteMutation,
-        variables: { title, type, firstNote },
+        variables: { title, type, firstItem },
       })
       .then(response => noteArrayToIndexMap(response.data.addNote))
       .then(notes => {

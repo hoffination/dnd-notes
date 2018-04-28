@@ -11,7 +11,7 @@
 
     <!-- Main view contemt -->
     <h1 class="dnd-header">{{ msg }}</h1>
-    <el-button @click="openAddNoteModal()">Add Note</el-button>
+    <el-button class="dnd-note-button" @click="openAddNoteModal()">Add Note</el-button>
     <NoteList class="list"></NoteList>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   methods: mapActions(['openAddNoteModal']),
   data() {
     return {
-      msg: 'Your notes',
+      msg: 'Notes',
     };
   },
 };
@@ -41,5 +41,10 @@ export default {
   padding-top: 30px;
   margin-left: auto;
   margin-right: auto;
+}
+.dnd-note-button {
+  position: fixed;
+  top: 10px;
+  z-index: 1;
 }
 </style>

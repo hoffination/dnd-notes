@@ -24,8 +24,9 @@ export default {
   computed: {
     noteItems: separateLinksInItem,
   },
-  methods: Object.assign(mapActions(['selectNote']), {
+  methods: Object.assign(mapActions(['setPreviousNote']), {
     goto(id) {
+      this.setPreviousNote(this.$route.params.id);
       this.$router.push(`/selectedNote/${id}`);
     },
   }),

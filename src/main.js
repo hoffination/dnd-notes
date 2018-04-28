@@ -3,6 +3,8 @@
 import Vue from 'vue';
 import {
   Button,
+  Breadcrumb,
+  BreadcrumbItem,
   Col,
   Dialog,
   Form,
@@ -26,6 +28,7 @@ import store from './store/store';
 import AddNote from './components/AddNote';
 import NoteItem from './components/NoteItem';
 import NoteList from './components/NoteList';
+import NoteBreadcrumb from './components/NoteBreadcrumb';
 
 Vue.config.productionTip = false;
 Vue.config.API = process.env.API;
@@ -34,6 +37,8 @@ Vue.use(VueSimpleSVG);
 
 // External components
 Vue.component(Button.name, Button);
+Vue.component(Breadcrumb.name, Breadcrumb);
+Vue.component(BreadcrumbItem.name, BreadcrumbItem);
 Vue.component(Col.name, Col);
 Vue.component(Dialog.name, Dialog);
 Vue.component(Form.name, Form);
@@ -51,6 +56,7 @@ Vue.component(Tag.name, Tag);
 Vue.component(AddNote.name, AddNote);
 Vue.component(NoteItem.name, NoteItem);
 Vue.component(NoteList.name, NoteList);
+Vue.component(NoteBreadcrumb.name, NoteBreadcrumb);
 
 new Vue({
   el: '#app',

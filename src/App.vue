@@ -6,12 +6,21 @@
 
 <script>
 import { mapActions } from 'vuex';
+import NoteDetail from './components/NoteDetail';
+import ViewNotes from './components/ViewNotes';
 
 export default {
-  methods: mapActions(['requestNotes']),
+  methods: mapActions(['requestNotes', 'resetPreviousNote']),
   name: 'App',
   created() {
     this.requestNotes();
+  },
+  watch: {
+    $route(to, from) {
+      if (to.name === ViewNotes.name || (to.name === NoteDetail.name && to.params.id === this.$store.state.ui.previousNote)) {
+        this.resetPreviousNote();
+      }
+    },
   },
 };
 </script>

@@ -1,5 +1,7 @@
 <template>
   <div v-if="selectedNote">
+    <NoteBreadcrumb :selectedNote="selectedNote"></NoteBreadcrumb>
+
     <h1 class="dnd-header">
       <simple-svg
         :filepath="$store.state.enums.noteTypes[selectedNote.type].svg"

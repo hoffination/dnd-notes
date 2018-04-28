@@ -32,6 +32,7 @@ const initialState = {
   },
   ui: {
     addNoteModalOpen: false,
+    previousNote: null,
   },
 };
 
@@ -50,6 +51,12 @@ const mutations = {
       ...state.entities.notes,
       ...notes,
     };
+  },
+  setPreviousNote(state, noteId) {
+    state.ui.previousNote = noteId;
+  },
+  resetPreviousNote(state) {
+    state.ui.previousNote = null;
   },
 };
 
@@ -89,6 +96,8 @@ const actions = {
         commit('appendNotes', noteContainer);
       });
   },
+  setPreviousNote: ({ commit }, noteId) => commit('setPreviousNote', noteId),
+  resetPreviousNote: ({ commit }) => commit('resetPreviousNote'),
 };
 
 export const getters = {
@@ -96,6 +105,8 @@ export const getters = {
   notes: state => Object.values(state.entities.notes),
   noteTypes: state => Object.values(state.enums.noteTypes),
   modalOpen: state => state.ui.addNoteModalOpen,
+  previousNote: state =>
+    state.ui.previousNote ? state.entities.notes[state.ui.previousNote] : null,
 };
 
 export default new Vuex.Store({

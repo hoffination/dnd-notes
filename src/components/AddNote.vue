@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" :rules="rules" ref="form" label-width="80px">
+  <el-form :model="form" :rules="rules" ref="form" @keyup.enter.native="addItemToNote()" @submit.prevent.native label-width="80px">
     <el-form-item label="Title" prop="title">
       <el-input v-model="form.title"></el-input>
     </el-form-item>
@@ -39,12 +39,12 @@
     </el-form-item>
 
     <el-form-item label="First Note" prop="first">
-      <el-input type="textarea" v-model="form.first"></el-input>
+      <el-input v-model="form.first"></el-input>
     </el-form-item>
 
     <el-form-item>
       <el-button @click="closeAddNoteModal()">Cancel</el-button>
-      <el-button type="primary" @click="submitForm('form')">Create</el-button>
+      <el-button native-type="submit" @click="submitForm('form')">Create</el-button>
     </el-form-item>
   </el-form>
 </template>

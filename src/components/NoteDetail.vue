@@ -21,15 +21,15 @@
     >
     </NoteItem>
 
-    <el-form class="add-note">
+    <el-form class="add-note" @submit.prevent.native>
       <el-row>
         <el-col :span="20">
           <el-form-item prop="noteToAdd">
-            <el-input v-model="noteToAdd"></el-input>
+            <el-input v-model="noteToAdd" placeholder="Item to add"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="4">
-          <el-button type="submit" @click="addItemToNote()">Add</el-button>
+          <el-button native-type="submit" @click="addItemToNote()">Add</el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -43,7 +43,7 @@ export default {
   name: 'NoteDetail',
   methods: {
     ...mapActions(['addItem']),
-    addItemToNote() {
+    addItemToNote(event) {
       this.addItem({ _id: this.$route.params.id, item: this.noteToAdd });
       this.noteToAdd = '';
     },

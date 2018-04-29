@@ -16,7 +16,7 @@
       </template>
     </el-table-column>
     <el-table-column prop="title" label="Title"></el-table-column>
-    <el-table-column width="60">
+    <el-table-column width="60" label="Count" :align="'center'">
       <template slot-scope="scope">
         <el-tag>{{scope.row.items.length}}</el-tag>
       </template>

@@ -1,13 +1,18 @@
 import { take, drop } from 'ramda';
+import parse from 'date-fns/parse';
 
 export function noteArrayToIndexMap(notes) {
   return notes
     .map(note => {
       let map = {};
-      map[note._id] = note;
+      map[note._id] = { ...note, createdDate: dateStrParse(note.created) };
       return map;
     })
     .reduce((p, c) => ({ ...p, ...c }), {});
+}
+
+export function dateStrParse(date) {
+  return parse(parseInt(date));
 }
 
 export function separateLinksInItem(noteItem) {

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import compareAsc from 'date-fns/compare_asc';
 
 import Place from '../assets/castle.svg';
 import Person from '../assets/caesar.svg';
@@ -12,7 +13,7 @@ import notesQuery from './queries/notes';
 import addNoteMutation from './queries/addNote';
 import addItemMutation from './queries/addItem';
 import demoNotes from './demo/demo-notes';
-import { noteArrayToIndexMap } from '../utils/NoteTransform';
+import { dateStrParse, noteArrayToIndexMap } from '../utils/NoteTransform';
 
 Vue.use(Vuex);
 
@@ -92,6 +93,9 @@ const actions = {
       })
       .then(response => {
         let noteContainer = {};
+        response.data.addItem.createdDate = dateStrParse(
+          response.data.addItem.created,
+        );
         noteContainer[response.data.addItem._id] = response.data.addItem;
         commit('appendNotes', noteContainer);
       });
@@ -102,7 +106,10 @@ const actions = {
 
 export const getters = {
   getNote: state => id => state.entities.notes[id],
-  notes: state => Object.values(state.entities.notes),
+  notes: state =>
+    Object.values(state.entities.notes).sort((a, b) =>
+      compareAsc(b.createdDate, a.createdDate),
+    ),
   noteTypes: state => Object.values(state.enums.noteTypes),
   modalOpen: state => state.ui.addNoteModalOpen,
   previousNote: state =>

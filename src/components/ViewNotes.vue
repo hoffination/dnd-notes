@@ -12,6 +12,9 @@
     <!-- Main view contemt -->
     <h1 class="dnd-header">{{ msg }}</h1>
     <el-button class="dnd-note-button" @click="openAddNoteModal()">Add Note</el-button>
+    <div class="dnd-sort-type">
+      <el-tag type="info">Newest</el-tag>
+    </div>
     <NoteList class="list"></NoteList>
   </div>
 </template>
@@ -46,5 +49,11 @@ export default {
   position: fixed;
   top: 10px;
   z-index: 1;
+}
+.dnd-sort-type {
+  display: flex;
+}
+.dnd-sort-type .el-tag {
+  margin-left: auto;
 }
 </style>

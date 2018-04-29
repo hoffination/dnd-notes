@@ -44,7 +44,14 @@
 
     <el-form-item>
       <el-button @click="closeAddNoteModal()">Cancel</el-button>
-      <el-button native-type="submit" @click="submitForm('form')">Create</el-button>
+      <el-button
+        v-loading="addNoteLoading"
+        :disabled="addNoteLoading"
+        native-type="submit"
+        @click="submitForm('form')"
+      >
+        Create
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -59,7 +66,7 @@ const formDefault = {
 
 export default {
   name: 'AddNote',
-  computed: mapGetters(['noteTypes', 'modalOpen']),
+  computed: mapGetters(['noteTypes', 'modalOpen', 'addNoteLoading']),
   data() {
     return {
       form: { ...formDefault },

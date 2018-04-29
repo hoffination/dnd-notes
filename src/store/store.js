@@ -141,6 +141,10 @@ export const getters = {
       compareAsc(b.createdDate, a.createdDate),
     ),
   notesLoading: state => state.loading.indexOf(state.enums.api.getNotes) !== -1,
+  addItemLoading: state =>
+    state.loading.indexOf(state.enums.api.addItem) !== -1,
+  addNoteLoading: state =>
+    state.loading.indexOf(state.enums.api.addNote) !== -1,
   noteTypes: state => Object.values(state.enums.noteTypes),
   modalOpen: state => state.ui.addNoteModalOpen,
   previousNote: state =>

@@ -29,7 +29,14 @@
           </el-form-item>
         </el-col>
         <el-col :span="4">
-          <el-button native-type="submit" @click="addItemToNote()">Add</el-button>
+          <el-button
+            v-loading="addItemLoading"
+            :disabled="addItemLoading"
+            native-type="submit"
+            @click="addItemToNote()"
+          >
+            Add
+          </el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -44,12 +51,13 @@ export default {
   methods: {
     ...mapActions(['addItem']),
     addItemToNote(event) {
-      this.addItem({ _id: this.$route.params.id, item: this.noteToAdd });
-      this.noteToAdd = '';
+      this.addItem({ _id: this.$route.params.id, item: this.noteToAdd }).then(() => {
+        this.noteToAdd = '';
+      });
     },
   },
   computed: {
-    ...mapGetters(['getNote']),
+    ...mapGetters(['getNote', 'addItemLoading']),
     selectedNote(x) {
       return x.getNote(x.$route.params.id);
     },

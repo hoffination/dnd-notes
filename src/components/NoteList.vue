@@ -1,5 +1,6 @@
 <template>
   <el-table
+    v-loading="notesLoading"
     :data="notes"
     :empty-text="'No notes to display.'"
     @row-click="clickRow"
@@ -29,7 +30,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'NoteList',
-  computed: mapGetters(['notes']),
+  computed: mapGetters(['notes', 'notesLoading']),
   methods: {
     clickRow(e) {
       this.$router.push(`/selectedNote/${e._id}`);

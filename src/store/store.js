@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import compareAsc from 'date-fns/compare_asc';
+import { remove } from 'ramda';
 
 import Place from '../assets/castle.svg';
 import Person from '../assets/caesar.svg';
@@ -14,6 +15,7 @@ import addNoteMutation from './queries/addNote';
 import addItemMutation from './queries/addItem';
 import demoNotes from './demo/demo-notes';
 import { dateStrParse, noteArrayToIndexMap } from '../utils/NoteTransform';
+import { wrapWithLoadStatus } from '../utils/loading';
 
 Vue.use(Vuex);
 
@@ -30,7 +32,13 @@ const initialState = {
       4: { id: 4, name: 'Monster', svg: Monster },
       5: { id: 5, name: 'Quest', svg: Quest },
     },
+    api: {
+      getNotes: 'GET_NOTES',
+      addNote: 'ADD_NOTE',
+      addItem: 'ADD_ITEM',
+    },
   },
+  loading: [],
   ui: {
     addNoteModalOpen: false,
     previousNote: null,
@@ -59,46 +67,68 @@ const mutations = {
   resetPreviousNote(state) {
     state.ui.previousNote = null;
   },
+  startLoading(state, api) {
+    state.loading = [...state.loading, api];
+  },
+  endLoading(state, api) {
+    state.loading = remove(api, 1, state.loading);
+  },
 };
 
 const actions = {
   openAddNoteModal: ({ commit }) => commit('openAddNoteModal'),
   closeAddNoteModal: ({ commit }) => commit('closeAddNoteModal'),
   requestNotes: ({ commit }) => {
-    graphqlClient
-      .query({
-        query: notesQuery,
-      })
-      .then(response => noteArrayToIndexMap(response.data.notes))
-      .then(notes => commit('loadNotes', notes));
+    return wrapWithLoadStatus(
+      commit,
+      initialState.enums.api.getNotes,
+      graphqlClient
+        .query({
+          query: notesQuery,
+        })
+        .then(response => noteArrayToIndexMap(response.data.notes))
+        .then(notes => {
+          commit('loadNotes', notes);
+          return notes;
+        }),
+    );
   },
   addNote: ({ commit }, { title, type, firstItem }) => {
-    graphqlClient
-      .mutate({
-        mutation: addNoteMutation,
-        variables: { title, type, firstItem },
-      })
-      .then(response => noteArrayToIndexMap(response.data.addNote))
-      .then(notes => {
-        commit('appendNotes', notes);
-        commit('closeAddNoteModal');
-      })
-      .catch(err => alert(err));
+    return wrapWithLoadStatus(
+      commit,
+      initialState.enums.api.addNote,
+      graphqlClient
+        .mutate({
+          mutation: addNoteMutation,
+          variables: { title, type, firstItem },
+        })
+        .then(response => noteArrayToIndexMap(response.data.addNote))
+        .then(notes => {
+          commit('appendNotes', notes);
+          commit('closeAddNoteModal');
+          return notes;
+        }),
+    );
   },
   addItem: ({ commit }, { _id, item }) => {
-    graphqlClient
-      .mutate({
-        mutation: addItemMutation,
-        variables: { _id, item },
-      })
-      .then(response => {
-        let noteContainer = {};
-        response.data.addItem.createdDate = dateStrParse(
-          response.data.addItem.created,
-        );
-        noteContainer[response.data.addItem._id] = response.data.addItem;
-        commit('appendNotes', noteContainer);
-      });
+    return wrapWithLoadStatus(
+      commit,
+      initialState.enums.api.addItem,
+      graphqlClient
+        .mutate({
+          mutation: addItemMutation,
+          variables: { _id, item },
+        })
+        .then(response => {
+          let noteContainer = {};
+          response.data.addItem.createdDate = dateStrParse(
+            response.data.addItem.created,
+          );
+          noteContainer[response.data.addItem._id] = response.data.addItem;
+          commit('appendNotes', noteContainer);
+          return noteContainer;
+        }),
+    );
   },
   setPreviousNote: ({ commit }, noteId) => commit('setPreviousNote', noteId),
   resetPreviousNote: ({ commit }) => commit('resetPreviousNote'),
@@ -110,6 +140,7 @@ export const getters = {
     Object.values(state.entities.notes).sort((a, b) =>
       compareAsc(b.createdDate, a.createdDate),
     ),
+  notesLoading: state => state.loading.indexOf(state.enums.api.getNotes) !== -1,
   noteTypes: state => Object.values(state.enums.noteTypes),
   modalOpen: state => state.ui.addNoteModalOpen,
   previousNote: state =>

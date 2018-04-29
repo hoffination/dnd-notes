@@ -10,6 +10,7 @@ import {
   Form,
   FormItem,
   Input,
+  Loading,
   Option,
   Popover,
   Row,
@@ -51,6 +52,8 @@ Vue.component(Select.name, Select);
 Vue.component(Table.name, Table);
 Vue.component(TableColumn.name, TableColumn);
 Vue.component(Tag.name, Tag);
+
+Vue.use(Loading.directive);
 
 // Internal Components
 Vue.component(AddNote.name, AddNote);

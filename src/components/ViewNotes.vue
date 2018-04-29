@@ -51,6 +51,9 @@ export default {
   z-index: 1;
 }
 .dnd-sort-type {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
   display: flex;
 }
 .dnd-sort-type .el-tag {

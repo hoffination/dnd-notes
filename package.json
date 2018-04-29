@@ -5,22 +5,20 @@
   "author": "Ben Hofferber <hofferber.ben@gmail.com>",
   "private": true,
   "scripts": {
-    "dev":
-      "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit",
     "build": "node build/build.js",
-    "deploy":
-      "NODE_ENV=production yarn build && aws s3 sync dist/ s3://dnd-notes --delete"
+    "deploy": "NODE_ENV=production yarn build && aws s3 sync dist/ s3://dnd-notes --delete"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.1.12",
     "apollo-client": "^2.2.8",
     "apollo-link": "^1.2.2",
     "apollo-link-http": "^1.5.4",
-    "element-ui": "^2.1.0",
+    "element-ui": "^2.3.6",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
     "ramda": "^0.25.0",
@@ -88,5 +86,9 @@
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

@@ -1,6 +1,7 @@
 <template>
   <el-table
     :data="notes"
+    :empty-text="'No notes to display.'"
     @row-click="clickRow"
   >
     <el-table-column width="60">

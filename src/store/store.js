@@ -18,7 +18,7 @@ Vue.use(Vuex);
 
 const initialState = {
   entities: {
-    notes: demoNotes,
+    notes: {},
   },
   enums: {
     noteTypes: {

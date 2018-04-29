@@ -1,5 +1,5 @@
 <template>
-  <div v-if="selectedNote">
+  <div v-if="selectedNote" class="dnd-breadcrumb">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">Notes</el-breadcrumb-item>
       <el-breadcrumb-item
@@ -24,5 +24,9 @@ export default {
 </script>
 
 <style>
-
+.dnd-breadcrumb {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
 </style>

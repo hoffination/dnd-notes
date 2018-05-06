@@ -7,7 +7,7 @@ describe('getters', () => {
     mockStore = {
       entities: { notes: {} },
       enums: { noteTypes: [] },
-      ui: { selectedNote: null },
+      ui: { selectedNote: null, notesSortConfig: {} },
     };
   });
 

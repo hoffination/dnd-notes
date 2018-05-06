@@ -8,6 +8,7 @@ export default gql`
       type
       characterId
       created
+      updated
       items {
         created
         item

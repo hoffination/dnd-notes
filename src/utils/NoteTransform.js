@@ -5,7 +5,11 @@ export function noteArrayToIndexMap(notes) {
   return notes
     .map(note => {
       let map = {};
-      map[note._id] = { ...note, createdDate: dateStrParse(note.created) };
+      map[note._id] = {
+        ...note,
+        createdDate: dateStrParse(note.created),
+        updatedDate: dateStrParse(note.updated),
+      };
       return map;
     })
     .reduce((p, c) => ({ ...p, ...c }), {});

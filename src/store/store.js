@@ -37,11 +37,18 @@ const initialState = {
       addNote: 'ADD_NOTE',
       addItem: 'ADD_ITEM',
     },
+    sortValues: {
+      createdDate: 'Newest',
+      updatedDate: 'Last Updated',
+    },
   },
   loading: [],
   ui: {
     addNoteModalOpen: false,
     previousNote: null,
+    notesSortConfig: {
+      sortValue: 'createdDate',
+    },
   },
 };
 
@@ -72,6 +79,9 @@ const mutations = {
   },
   endLoading(state, api) {
     state.loading = remove(api, 1, state.loading);
+  },
+  setSortType(state, sortType) {
+    state.ui.notesSortConfig.sortValue = sortType;
   },
 };
 
@@ -132,13 +142,17 @@ const actions = {
   },
   setPreviousNote: ({ commit }, noteId) => commit('setPreviousNote', noteId),
   resetPreviousNote: ({ commit }) => commit('resetPreviousNote'),
+  setSortType: ({ commit }, sortType) => commit('setSortType', sortType),
 };
 
 export const getters = {
   getNote: state => id => state.entities.notes[id],
   notes: state =>
     Object.values(state.entities.notes).sort((a, b) =>
-      compareAsc(b.createdDate, a.createdDate),
+      compareAsc(
+        b[state.ui.notesSortConfig.sortValue],
+        a[state.ui.notesSortConfig.sortValue],
+      ),
     ),
   notesLoading: state => state.loading.indexOf(state.enums.api.getNotes) !== -1,
   addItemLoading: state =>
@@ -146,6 +160,9 @@ export const getters = {
   addNoteLoading: state =>
     state.loading.indexOf(state.enums.api.addNote) !== -1,
   noteTypes: state => Object.values(state.enums.noteTypes),
+  sortValues: state => state.enums.sortValues,
+  selectedSortValue: state =>
+    state.enums.sortValues[state.ui.notesSortConfig.sortValue],
   modalOpen: state => state.ui.addNoteModalOpen,
   previousNote: state =>
     state.ui.previousNote ? state.entities.notes[state.ui.previousNote] : null,

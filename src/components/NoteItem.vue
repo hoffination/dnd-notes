@@ -1,5 +1,5 @@
 <template>
-  <p>
+  <p class="dnd-item">
     <span v-for="(item, index) in noteItems" :key="index">
       <el-button
         class="linkTag"
@@ -24,17 +24,23 @@ export default {
   computed: {
     noteItems: separateLinksInItem,
   },
-  methods: Object.assign(mapActions(['setPreviousNote']), {
+  methods: {
+    ...mapActions(['setPreviousNote']),
     goto(id) {
       this.setPreviousNote(this.$route.params.id);
       this.$router.push(`/selectedNote/${id}`);
     },
-  }),
+  },
 };
 </script>
 
 <style>
 .linkTag {
   margin-right: 5px;
+}
+.dnd-item {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

@@ -21,7 +21,7 @@
     >
     </NoteItem>
 
-    <el-form class="add-note" @submit.prevent.native>
+    <el-form class="dnd-add-item" @submit.prevent.native>
       <el-row>
         <el-col :span="20">
           <el-form-item prop="noteToAdd">
@@ -58,8 +58,8 @@ export default {
   },
   computed: {
     ...mapGetters(['getNote', 'addItemLoading']),
-    selectedNote(x) {
-      return x.getNote(x.$route.params.id);
+    selectedNote(component) {
+      return component.getNote(component.$route.params.id);
     },
   },
   data() {
@@ -74,7 +74,7 @@ export default {
 p {
   text-align: center;
 }
-.add-note {
+.dnd-add-item {
   text-align: center;
   max-width: 800px;
   margin-left: auto;

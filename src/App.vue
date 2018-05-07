@@ -6,8 +6,8 @@
 
 <script>
 import { mapActions } from 'vuex';
-import NoteDetail from './components/NoteDetail';
-import ViewNotes from './components/ViewNotes';
+import NoteDetail from './components/routes/NoteDetail';
+import ViewNotes from './components/routes/ViewNotes';
 
 export default {
   methods: mapActions(['requestNotes', 'resetPreviousNote']),

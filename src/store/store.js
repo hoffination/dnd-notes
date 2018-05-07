@@ -13,7 +13,6 @@ import graphqlClient from '../utils/graphql';
 import notesQuery from './queries/notes';
 import addNoteMutation from './queries/addNote';
 import addItemMutation from './queries/addItem';
-import demoNotes from './demo/demo-notes';
 import { dateStrParse, noteArrayToIndexMap } from '../utils/NoteTransform';
 import { wrapWithLoadStatus } from '../utils/loading';
 

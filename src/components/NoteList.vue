@@ -32,8 +32,8 @@ export default {
   name: 'NoteList',
   computed: mapGetters(['notes', 'notesLoading']),
   methods: {
-    clickRow(e) {
-      this.$router.push(`/selectedNote/${e._id}`);
+    clickRow(event) {
+      this.$router.push(`/selectedNote/${event._id}`);
     },
   },
 };

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { shallow, createLocalVue } from 'vue-test-utils';
-import HelloWorld from '@/components/HelloWorld';
+// import HelloWorld from '@/components/HelloWorld';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);

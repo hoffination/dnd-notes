@@ -3,16 +3,18 @@ import parse from 'date-fns/parse';
 
 export function noteArrayToIndexMap(notes) {
   return notes
-    .map(note => {
-      let map = {};
-      map[note._id] = {
-        ...note,
-        createdDate: dateStrParse(note.created),
-        updatedDate: dateStrParse(note.updated),
-      };
-      return map;
-    })
+    .map(note => ({
+      [note._id]: appendNoteDates(note),
+    }))
     .reduce((p, c) => ({ ...p, ...c }), {});
+}
+
+export function appendNoteDates(note) {
+  return {
+    ...note,
+    createdDate: dateStrParse(note.created),
+    updatedDate: dateStrParse(note.updated),
+  };
 }
 
 export function dateStrParse(date) {

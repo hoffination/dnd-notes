@@ -14,7 +14,7 @@ import notesQuery from './queries/notes';
 import addNoteMutation from './queries/addNote';
 import addItemMutation from './queries/addItem';
 import { dateStrParse, noteArrayToIndexMap } from '../utils/NoteTransform';
-import { wrapWithLoadStatus } from '../utils/loading';
+import { wrapPromiseWithLoadStatus } from '../utils/loading';
 
 Vue.use(Vuex);
 
@@ -88,7 +88,7 @@ const actions = {
   openAddNoteModal: ({ commit }) => commit('openAddNoteModal'),
   closeAddNoteModal: ({ commit }) => commit('closeAddNoteModal'),
   requestNotes: ({ commit }) => {
-    return wrapWithLoadStatus(
+    return wrapPromiseWithLoadStatus(
       commit,
       initialState.enums.api.getNotes,
       graphqlClient
@@ -103,7 +103,7 @@ const actions = {
     );
   },
   addNote: ({ commit }, { title, type, firstItem }) => {
-    return wrapWithLoadStatus(
+    return wrapPromiseWithLoadStatus(
       commit,
       initialState.enums.api.addNote,
       graphqlClient
@@ -120,7 +120,7 @@ const actions = {
     );
   },
   addItem: ({ commit }, { _id, item }) => {
-    return wrapWithLoadStatus(
+    return wrapPromiseWithLoadStatus(
       commit,
       initialState.enums.api.addItem,
       graphqlClient

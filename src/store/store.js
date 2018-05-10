@@ -18,7 +18,7 @@ import { wrapPromiseWithLoadStatus } from '../utils/loading';
 
 Vue.use(Vuex);
 
-const initialState = {
+export const initialState = {
   entities: {
     notes: {},
   },

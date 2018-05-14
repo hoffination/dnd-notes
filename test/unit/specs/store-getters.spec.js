@@ -4,9 +4,7 @@ describe('getters', () => {
   let mockStore;
 
   beforeEach(() => {
-    mockStore = {
-      ...initialState,
-    };
+    mockStore = { ...initialState };
   });
 
   describe('getNote', () => {

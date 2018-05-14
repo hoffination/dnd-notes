@@ -51,7 +51,7 @@ export const initialState = {
   },
 };
 
-const mutations = {
+export const mutations = {
   openAddNoteModal(state) {
     state.ui.addNoteModalOpen = true;
   },
@@ -77,7 +77,10 @@ const mutations = {
     state.loading = [...state.loading, api];
   },
   endLoading(state, api) {
-    state.loading = remove(api, 1, state.loading);
+    let index = state.loading.indexOf(api);
+    if (index !== -1) {
+      state.loading = remove(index, 1, state.loading);
+    }
   },
   setSortType(state, sortType) {
     state.ui.notesSortConfig.sortValue = sortType;

@@ -29,7 +29,7 @@ import router from './router';
 import store from './store/store';
 
 import AddNote from './components/AddNote';
-import AutocompleteInput from './components/AutoCompleteInput';
+import AutocompleteInput from './components/AutocompleteInput';
 import NoteItem from './components/NoteItem';
 import NoteList from './components/NoteList';
 import NoteBreadcrumb from './components/NoteBreadcrumb';

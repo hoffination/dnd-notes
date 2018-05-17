@@ -26,7 +26,12 @@ export default {
 <style>
 .dnd-breadcrumb {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  padding-left: 20px;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(white 25%, rgba(255, 255, 255, 0) 75%);
 }
 </style>

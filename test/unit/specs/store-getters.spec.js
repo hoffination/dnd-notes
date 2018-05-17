@@ -137,4 +137,35 @@ describe('getters', () => {
       expect(getters.previousNote(state)).toEqual(previousNote);
     });
   });
+
+  describe('findMatchingNoteTitles', () => {
+    it('should return all notes if given an empty string', () => {
+      const state = {
+        ...mockStore,
+        entities: { notes: { 1: { _id: '1', title: 'hello' } } },
+      };
+      expect(getters.findMatchingNoteTitles(state)('')).toEqual([
+        { _id: '1', title: 'hello' },
+      ]);
+    });
+
+    it('should return only matching titles from store', () => {
+      const state = {
+        ...mockStore,
+        entities: {
+          notes: {
+            1: { _id: '1', title: 'hello' },
+            2: { _id: '2', title: 'Hello World' },
+            3: { _id: '3', title: 'Works Toward Hello World' },
+            4: { _id: '4', title: 'Hella Awesome' },
+          },
+        },
+      };
+      expect(getters.findMatchingNoteTitles(state)('hello')).toEqual([
+        { _id: '1', title: 'hello' },
+        { _id: '2', title: 'Hello World' },
+        { _id: '3', title: 'Works Toward Hello World' },
+      ]);
+    });
+  });
 });

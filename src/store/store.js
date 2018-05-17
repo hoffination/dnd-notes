@@ -168,6 +168,10 @@ export const getters = {
   modalOpen: state => state.ui.addNoteModalOpen,
   previousNote: state =>
     state.ui.previousNote ? state.entities.notes[state.ui.previousNote] : null,
+  findMatchingNoteTitles: state => text =>
+    Object.values(state.entities.notes).filter(note => {
+      return note.title.toLowerCase().includes(text);
+    }),
 };
 
 export default new Vuex.Store({

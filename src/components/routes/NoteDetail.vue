@@ -25,7 +25,7 @@
       <el-row>
         <el-col :span="20">
           <el-form-item prop="noteToAdd">
-            <el-input v-model="noteToAdd" placeholder="Item to add"></el-input>
+            <AutocompleteInput v-model="noteToAdd" placeholder="Item to add"></AutocompleteInput>
           </el-form-item>
         </el-col>
         <el-col :span="4">

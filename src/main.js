@@ -5,12 +5,14 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
+  Card,
   Col,
   Dialog,
   Form,
   FormItem,
   Input,
   Loading,
+  Message,
   Option,
   Popover,
   Row,
@@ -27,6 +29,7 @@ import router from './router';
 import store from './store/store';
 
 import AddNote from './components/AddNote';
+import AutocompleteInput from './components/AutoCompleteInput';
 import NoteItem from './components/NoteItem';
 import NoteList from './components/NoteList';
 import NoteBreadcrumb from './components/NoteBreadcrumb';
@@ -40,6 +43,7 @@ Vue.use(VueSimpleSVG);
 Vue.component(Button.name, Button);
 Vue.component(Breadcrumb.name, Breadcrumb);
 Vue.component(BreadcrumbItem.name, BreadcrumbItem);
+Vue.component(Card.name, Card);
 Vue.component(Col.name, Col);
 Vue.component(Dialog.name, Dialog);
 Vue.component(Form.name, Form);
@@ -54,9 +58,11 @@ Vue.component(TableColumn.name, TableColumn);
 Vue.component(Tag.name, Tag);
 
 Vue.use(Loading.directive);
+Vue.prototype.$message = Message;
 
 // Internal Components
 Vue.component(AddNote.name, AddNote);
+Vue.component(AutocompleteInput.name, AutocompleteInput);
 Vue.component(NoteItem.name, NoteItem);
 Vue.component(NoteList.name, NoteList);
 Vue.component(NoteBreadcrumb.name, NoteBreadcrumb);

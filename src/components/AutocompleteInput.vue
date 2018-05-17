@@ -94,7 +94,7 @@ export default {
         const popover = document.getElementsByClassName('dnd-auto-popover')[0];
         const popoverHeight = popover.getBoundingClientRect().height;
         const element = document.getElementsByClassName('dnd-auto-input')[0];
-        const elementRect = element.getClientRects()[0];
+        const elementRect = element.getBoundingClientRect();
 
         const bottomOfHangingPopover = getLowestPopoverScrollPosition({
           elementTop: elementRect.y,

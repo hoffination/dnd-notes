@@ -87,7 +87,7 @@ export const mutations = {
   },
 };
 
-const actions = {
+export const actions = {
   openAddNoteModal: ({ commit }) => commit('openAddNoteModal'),
   closeAddNoteModal: ({ commit }) => commit('closeAddNoteModal'),
   requestNotes: ({ commit }) => {

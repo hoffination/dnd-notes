@@ -79,14 +79,17 @@ export default {
     },
     handleScroll: function() {
       window.requestAnimationFrame(() => {
-        const popover = document.getElementsByClassName('dnd-auto-popover')[0];
         if (this.showAutocomplete) {
-          popover.style.display = '';
+          this.updatePopoverDisplay('');
           this.calculateDropdownPosition();
         } else {
-          popover.style.display = 'none';
+          this.updatePopoverDisplay('none');
         }
       });
+    },
+    updatePopoverDisplay(value) {
+      const popover = document.getElementsByClassName('dnd-auto-popover')[0];
+      popover.style.display = value;
     },
     calculateDropdownPosition() {
       window.requestAnimationFrame(() => {

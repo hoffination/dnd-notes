@@ -3,42 +3,33 @@ const webpackConfig = require('./build/webpack.base.conf.js');
 const wallabyWebpack = require('wallaby-webpack');
 
 module.exports = function(wallaby) {
-  webpackConfig.resolve.alias = { '@': require('path').join(wallaby.projectCacheDir, 'src') };
+  webpackConfig.resolve.alias = {
+    '@': require('path').join(wallaby.projectCacheDir, 'src'),
+  };
   webpackConfig.externals = { vue: 'Vue' };
-  webpackConfig.module.rules.find(r => r.loader === 'vue-loader').options.loaders.js = '';
-
-  const wallabyPostprocessor = wallabyWebpack(webpackConfig);
+  webpackConfig.module.rules.find(
+    r => r.loader === 'vue-loader',
+  ).options.loaders.js =
+    '';
 
   return {
-    files: [
-      { pattern: 'node_modules/vue/dist/vue.js', instrument: false },
-      { pattern: 'node_modules/babel-polyfill/dist/polyfill.js', instrument: false },
-      // {pattern: 'node_modules/babel-polyfill/browser.js', instrument: false},
-      { pattern: 'src/**/*.*', load: false },
-      { pattern: 'src/**/*.test.js', load: false, ignore: true },
-    ],
+    files: ['src/**/*', 'test/unit/*.js', 'package.json'],
 
-    // env: {
-    //   type: 'browser'
-    // },
-
-    tests: [
-      { pattern: 'test/**/*.spec.js', load: false }, // tests from https://github.com/ChangJoo-Park/vue-wallaby-webpack-template
-      { pattern: 'src/**/*.test.js', load: false },
-    ],
-
-    postprocessor: wallabyPostprocessor,
-
-    setup: function() {
-      Vue.config.errorHandler = function(err) {
-        throw err;
-      };
-      Vue.config.productionTip = false;
-
-      window.__moduleBundler.loadTests();
+    env: {
+      type: 'node',
+      runner: 'node',
     },
 
-    // testFramework: 'jest',
+    tests: ['test/**/*.spec.js'],
+
+    setup: function(wallaby) {
+      const jestConfig =
+        require('./package').jest || require('./test/unit/jest.conf.js');
+      jestConfig.transform = {};
+      wallaby.testFramework.configure(jestConfig);
+    },
+
+    testFramework: 'jest',
 
     hints: {
       ignoreCoverage: /ignore coverage/,
@@ -47,6 +38,10 @@ module.exports = function(wallaby) {
     compilers: {
       '**/*.js': wallaby.compilers.babel(),
       '**/*.vue': require('wallaby-vue-compiler')(wallaby.compilers.babel({})),
+    },
+
+    preprocessors: {
+      '**/*.vue': file => require('vue-jest').process(file.content, file.path),
     },
 
     debug: true,

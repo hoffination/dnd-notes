@@ -51,7 +51,7 @@ export default {
   methods: {
     ...mapActions(['addItem']),
     addItemToNote(event) {
-      this.addItem({ _id: this.$route.params.id, item: this.noteToAdd }).then(() => {
+      return this.addItem({ _id: this.$route.params.id, item: this.noteToAdd }).then(() => {
         this.noteToAdd = '';
       });
     },
